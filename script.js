@@ -1,13 +1,18 @@
 // Target date: November 28, 2025, 3:00 PM
-const targetDate = new Date('2025-11-28T15:00:00').getTime();
+const targetDate = new Date('2025-11-28T19:54:00').getTime();
 
 // List of images in the images folder
 const imageList = [
-    'images/image1.jpg',
-    'images/image2.jpg',
-    'images/image3.jpg',
-    'images/image4.jpg',
-    'images/image5.jpg'
+    'images/imatge1.webp',
+    'images/imatge2.webp',
+    'images/imatge4.webp',
+    'images/imatge5.webp',
+    'images/imatge6.webp',
+    'images/imatge7.webp',
+    'images/imatge8.webp',
+    'images/imatge9.webp',
+    'images/imatge10.webp',
+    'images/imatge11.webp'
 ];
 
 // Load a random image on page load
@@ -23,18 +28,29 @@ function updateCountdown() {
     const distance = targetDate - now;
 
     if (distance > 0) {
-        // Calculate total seconds remaining
-        const totalSeconds = Math.floor(distance / 1000);
+        // Calculate time units
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         // Update the countdown display
-        document.getElementById('seconds').textContent = totalSeconds.toLocaleString();
+        document.getElementById('days').textContent = days;
+        document.getElementById('hours').textContent = hours;
+        document.getElementById('minutes').textContent = minutes;
+        document.getElementById('seconds').textContent = seconds;
 
         // Continue updating every second
         setTimeout(updateCountdown, 1000);
     } else {
         // Countdown finished
+        document.getElementById('days').textContent = '0';
+        document.getElementById('hours').textContent = '0';
+        document.getElementById('minutes').textContent = '0';
         document.getElementById('seconds').textContent = '0';
-        document.querySelector('.label').textContent = 'Time\'s Up!';
+        document.querySelectorAll('.label').forEach(label => {
+            label.textContent = 'Time\'s Up!';
+        });
 
         // Trigger celebration animation
         startCelebration();
@@ -123,8 +139,13 @@ function checkCountdownStatus() {
 
     if (distance <= 0) {
         // Countdown has finished, show celebration
+        document.getElementById('days').textContent = '0';
+        document.getElementById('hours').textContent = '0';
+        document.getElementById('minutes').textContent = '0';
         document.getElementById('seconds').textContent = '0';
-        document.querySelector('.label').textContent = 'Time\'s Up!';
+        document.querySelectorAll('.label').forEach(label => {
+            label.textContent = 'Time\'s Up!';
+        });
         startCelebration();
     } else {
         // Start normal countdown
